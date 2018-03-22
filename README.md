@@ -3,7 +3,7 @@
 
 Content of this repo:
 
-- [Documentation](docs/) (pre-rendered on the [web site](https://www.receipts-app.com/help/api.html))
+- [Documentation](docs/index.md) (pre-rendered on the [web site](https://www.receipts-app.com/help/api.html))
 - Examples
   - [Export](export) and [Import](import) via AppleScript and JavaScript
   - [Node JS](nodejs)

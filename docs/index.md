@@ -11,7 +11,7 @@ In the Apple's ScriptEditor environment you should make use of the "Library" fea
 
 On **GitHub** you find examples and documentation: <https://github.com/holtwick/receipts-api>
 
-![AppleScript Window](index.assets/applescript-api.png)
+![AppleScript Window](api.assets/applescript-api.png)
 
 ## Simple Examples
 
