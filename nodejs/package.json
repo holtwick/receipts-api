@@ -1,0 +1,18 @@
+{
+    "name": "receipts-export-demo",
+    "version": "1.0.0",
+    "description": "A demo of how to use Apple Scripting and node.js to export and process data",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "jest"
+    },
+    "author": "Dirk Holtwick <dirk.holtwick@gmail.com> (http://www.holtwick.it)",
+    "license": "UNLICENSED",
+    "devDependencies": {
+        "jest": "^19.0.2"
+    },
+    "dependencies": {
+        "applescript": "^1.0.0"
+    }
+}
