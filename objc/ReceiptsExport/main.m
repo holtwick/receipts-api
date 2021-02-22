@@ -19,3 +19,9 @@ int main(int argc, const char * argv[]) {
     }
     return 0;
 }
+
+//NSString* aScript = [NSString stringWithFormat: @"tell application \"Receipts\"\n set result to export where date paid from date \"%@\" to date \"%@\" as plist with paid and confirmed\n end tell",[aFormatter stringFromDate:self.startDate.dayStart],[aFormatter stringFromDate:self.endDate.dayEnd]];
+//
+//tell application "Receipts"
+//set result to export where date paid from date "Thursday, 4. February 2021 at 00:00:00" to (current date) as plist with paid and confirmed
+//end tell
