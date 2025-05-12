@@ -9,17 +9,13 @@ It is possible to use [macOS scripting](https://developer.apple.com/library/cont
 
 In the Apple's ScriptEditor environment you should make use of the "Library" feature, which shows you the detailed API documentation
 
-On **GitHub** you find examples and documentation: <https://github.com/holtwick/receipts-api>
-
-![AppleScript Window](api.assets/applescript-api.png)
-
 ## Simple Examples
 
 AppleScript:
 
 ```applescript
 tell application "Receipts"
-	set result to export from date "1.1.2017" to current date as plist
+ set result to export from date "1.1.2017" to current date as plist
 end tell
 ```
 
@@ -28,16 +24,16 @@ Javascript:
 ```js
 var Receipts = new Application("Receipts")
 var json = Receipts.export({
-	from: new Date(2017,1,1),
-	to: new Date(),
-	as: 'json'
-	})
+ from: new Date(2017,1,1),
+ to: new Date(),
+ as: 'json'
+ })
 var result = JSON.parse(json)
 ```
 
 ## Data Structure - API Version 1.0
 
-The following definition is in [Flow syntax for Interface Types](https://flow.org/en/docs/types/interfaces/). 
+The following definition is in [Flow syntax for Interface Types](https://flow.org/en/docs/types/interfaces/).
 
 ### Export
 
@@ -61,6 +57,7 @@ interface ReceiptsItem {
 
     isConfirmed: boolean,   // Correctness manually confirmed by user
     isPaid: boolean,        // Also see datePayment
+    isDocument: boolean,    // True if document, else receipt
     isMarked: boolean,      // In the UI named "starred"
     isCredit: boolean,      // True if revenue, else spending
     
@@ -72,16 +69,16 @@ interface ReceiptsItem {
     datePayment: Date,      // The date when the payment was performed
     dateAdded: Date,        // The date the item was added to Receipts
 
-    amounts: ReceiptsAmounts,
-    // The amounts in the default currency
-    amountsOriginal: ReceiptsAmountsOriginal,
-    // The amounts in the receipt's currency
-
+    amounts: ReceiptsAmounts,                   // The amounts in the default currency
+    amountsOriginal: ReceiptsAmountsOriginal,   // The amounts in the receipt's currency
+    
     iban: string,           // The IBAN for wire transfer payments
 
     asset: ReceiptsFile,            // Local file URL pointing to the processed PDF
                                     // i.e. OCR applied, converted to searchable PDF
     assetOriginal: ReceiptsFile     // If available the copy of the source data
+    assetUrl: string,               // Internal URL to the asset
+    assetOriginalUrl: string,       // Internal URL to the original asset
     
     exportFileName: string          // Filename used for last export
 }
@@ -124,11 +121,11 @@ interface ReceiptsTaxDetails {
 
 interface ReceiptsFile {
     url: string,
-    path: string,
+    type: string,
     uti: string,
     ext: string,
     size: number,
-    md5: string
+    sha1: string
 }
 ```
 
@@ -155,9 +152,3 @@ For **json** format the following conversions apply:
 
 - `Decimal` => `string` (In JS we recommend [decimal.js](https://github.com/MikeMcl/decimal.js))
 - `Date` => `string` ([ISO 8601](https://en.wikipedia.org/wiki/ISO_8601), which is compatible to JS [`Date` "ISO" methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date))
-
-#### Clipboard / Pasteboard
-
-The **plist** format described before is also used in the clipboard as type `com.apperdeck.receipts.pasteboard.3`.
-
-<link href="/css/zenburn.css" type="text/css">

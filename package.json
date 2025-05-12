@@ -1,0 +1,21 @@
+{
+  "name": "github-receipts-api",
+  "version": "2.0.0",
+  "description": "Receipts Space AppleScript API",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holtwick/receipts-api.git"
+  },
+  "author": "Dirk Holtwick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/holtwick/receipts-api/issues"
+  },
+  "homepage": "https://github.com/holtwick/receipts-api#readme"
+}

@@ -62,3 +62,8 @@ fastlane/test_output
 
 iOSInjectionProject/
 objc/ReceiptsExport.xcodeproj/project.xcworkspace/xcshareddata
+
+node_modules
+pnpm-lock.yaml
+
+_xcode

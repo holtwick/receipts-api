@@ -1,2 +1,2 @@
 #!/bin/sh
-osascript -e "tell application \"Receipts\" to export as plist"
+osascript -e "tell application \"Receipts Space\" to export as plist"
