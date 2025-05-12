@@ -10,7 +10,7 @@
     "author": "Dirk Holtwick <dirk.holtwick@gmail.com> (http://www.holtwick.it)",
     "license": "UNLICENSED",
     "devDependencies": {
-        "jest": "^19.0.2"
+        "jest": "^29.7.0"
     },
     "dependencies": {
         "applescript": "^1.0.0"
