@@ -1,6 +1,6 @@
 {
   "name": "github-receipts-api",
-  "version": "2.1.18",
+  "version": "2.1.19",
   "description": "Receipts Space AppleScript API",
   "directories": {
     "doc": "docs"
