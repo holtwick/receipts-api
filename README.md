@@ -16,6 +16,10 @@ Content of this repo:
 
 ## Changes
 
+### 2.1.18 (2025-06-26)
+
+- Assets `url` is not a file URL anymore, but a web URL pointing to a temprorary web server inside Receipts Space app
+
 ### 2.0.0 (2025-05-12)
 
 - `providers` changed to `contacts`
