@@ -13,7 +13,20 @@ int main(int argc, const char *argv[]) {
     } else {
       NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
       id result = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
-      NSLog(@"%@", result);
+      // List all assets
+      for (NSDictionary *receipt in result[@"items"]) {
+        NSDictionary *asset = receipt[@"asset"];
+        if (asset) {
+          NSURL *url = [NSURL URLWithString:asset[@"url"]];
+          NSLog(@"Asset URL: %@", url);
+          NSData *data = [NSData dataWithContentsOfURL:url];
+
+#error Set your own download path
+          [data writeToFile:[NSString stringWithFormat:@"/Users/dirk/Downloads/%@.pdf", receipt[@"id"]] atomically:YES];
+        }
+      }
+
+      //      NSLog(@"%@", result);
     }
   }
   return 0;
