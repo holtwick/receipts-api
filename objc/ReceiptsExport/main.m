@@ -4,36 +4,45 @@
 
 int main(int argc, const char *argv[]) {
   @autoreleasepool {
+    // Use AppleScript to export all receipts as plist
     NSString *source = @"tell application \"Receipts Space\" to export as plist";
     NSDictionary *error = nil;
     NSAppleScript *appleScript = [[NSAppleScript alloc] initWithSource:source];
     NSString *string = [[appleScript executeAndReturnError:&error] stringValue];
     if (!string && error) {
       NSLog(@"Error %@", error);
-    } else {
-      NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-      id result = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
-      // List all assets
-      for (NSDictionary *receipt in result[@"items"]) {
-        NSDictionary *asset = receipt[@"asset"];
-        if (asset) {
-          NSURL *url = [NSURL URLWithString:asset[@"url"]];
-          NSLog(@"Asset URL: %@", url);
-          NSData *data = [NSData dataWithContentsOfURL:url];
-
-#error Set your own download path
-          [data writeToFile:[NSString stringWithFormat:@"/Users/dirk/Downloads/%@.pdf", receipt[@"id"]] atomically:YES];
-        }
+      return -1;
+    }
+      
+    // Convert the property list data to an NSDictionary
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    id result = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
+    
+    // List all entries
+    for (NSDictionary *receipt in result[@"items"]) {
+      // NSLog(@"Receipt: %@", receipt);
+      
+      // Skip entries that are not a receipt, but a document
+      if ([receipt[@"isDocument"] boolValue]) {
+        NSLog(@"Skipping document %@", receipt[@"id"]);
+        continue;
       }
 
-      //      NSLog(@"%@", result);
+      // Get the document file, which is always a PDF
+      NSDictionary *asset = receipt[@"asset"];
+      if (asset) {
+        
+        // The URL points to a local web server
+        NSURL *url = [NSURL URLWithString:asset[@"url"]];
+        NSLog(@"Asset URL: %@", url);
+        NSData *data = [NSData dataWithContentsOfURL:url];
+
+#error Set your own download path
+        [data writeToFile:[NSString stringWithFormat:@"/Users/dirk/Downloads/%@.pdf", receipt[@"id"]] atomically:YES];
+      }
     }
+    
   }
   return 0;
 }
 
-//NSString* aScript = [NSString stringWithFormat: @"tell application \"Receipts\"\n set result to export where date paid from date \"%@\" to date \"%@\" as plist with paid and confirmed\n end tell",[aFormatter stringFromDate:self.startDate.dayStart],[aFormatter stringFromDate:self.endDate.dayEnd]];
-//
-//tell application "Receipts"
-//set result to export where date paid from date "Thursday, 4. February 2021 at 00:00:00" to (current date) as plist with paid and confirmed
-//end tell
